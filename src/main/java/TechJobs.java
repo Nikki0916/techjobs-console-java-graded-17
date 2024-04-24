@@ -11,7 +11,8 @@ import java.util.*;
 public class TechJobs {
 
     static Scanner in = new Scanner(System.in);
- public static void main(String[] args) {
+
+    public static void main(String[] args) {
 
         HashMap<String, String> columnChoices = new HashMap<>();
         columnChoices.put("core competency", "Skill");
@@ -47,14 +48,14 @@ public class TechJobs {
 
             } else { // choice is "search"
 
-                // Determine how the user wants to search
+               
                 String searchField = getUserSelection("Search by:", columnChoices);
 
                 if (searchField == null) {
                     break; // If the user quits while selecting search field, exit the loop
                 }
 
-                // Get the search term from the user
+                
                 System.out.println("\nSearch term:");
                 String searchTerm = in.nextLine();
 
@@ -67,41 +68,17 @@ public class TechJobs {
         }
     }
 
-   
-private static String getUserSelection(String menuHeader, HashMap<String, String> choices) {
 
-    String[] choiceKeys = choices.keySet().toArray(new String[0]);
+    private static String getUserSelection(String menuHeader, HashMap<String, String> choices) {
 
-    do {
-        System.out.println("\n" + menuHeader);
+        String[] choiceKeys = choices.keySet().toArray(new String[0]);
 
-        // Print available choices
-        for (int i = 0; i < choiceKeys.length; i++) {
-            System.out.println("" + i + " - " + choices.get(choiceKeys[i]));
-        }
+        do {
+            System.out.println("\n" + menuHeader);
 
-        String userInput = in.nextLine();
-
-        if (userInput.equals("x")) {
-            return null; // If the user types 'x', exit the loop and return null
-        }
-
-        try {
-            int choiceIdx = Integer.parseInt(userInput);
-            if (choiceIdx >= 0 && choiceIdx < choiceKeys.length) {
-                return choiceKeys[choiceIdx];
-            } else {
-                System.out.println("Invalid choice. Try again.");
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid choice. Try again.");
-        }
-
-    } while (true);
-}
             // Print available choices
-            for (int j = 0; j < choiceKeys.length; j++) {
-                System.out.println("" + j + " - " + choices.get(choiceKeys[j]));
+            for (int i = 0; i < choiceKeys.length; i++) {
+                System.out.println("" + i + " - " + choices.get(choiceKeys[i]));
             }
 
             String userInput = in.nextLine();
@@ -111,23 +88,20 @@ private static String getUserSelection(String menuHeader, HashMap<String, String
             }
 
             try {
-                choiceIdx = Integer.parseInt(userInput);
+                int choiceIdx = Integer.parseInt(userInput);
+                if (choiceIdx >= 0 && choiceIdx < choiceKeys.length) {
+                    return choiceKeys[choiceIdx];
+                } else {
+                    System.out.println("Invalid choice. Try again.");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid choice. Try again.");
-                continue; // If user input cannot be parsed as an integer, prompt again
             }
 
-            // Validate user's input
-            if (choiceIdx < 0 || choiceIdx >= choiceKeys.length) {
-                System.out.println("Invalid choice. Try again.");
-            }
-
-        } while (choiceIdx < 0 || choiceIdx >= choiceKeys.length);
-
-        return choiceKeys[choiceIdx];
+        } while (true);
     }
 
-   
+
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
         if (someJobs.isEmpty()) {
@@ -143,5 +117,5 @@ private static String getUserSelection(String menuHeader, HashMap<String, String
             System.out.println("*****\n");
         }
     }
-
 }
+
