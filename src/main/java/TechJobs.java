@@ -34,23 +34,17 @@ public class TechJobs {
 
             if (actionChoice == null) {
                 break;
-            } else if (actionChoice.equals("list")) {
+            else if (actionChoice.equals("list")) {
 
-                String columnChoice = getUserSelection("List", columnChoices);
+    String columnChoice = getUserSelection("List", columnChoices);
 
-                if (columnChoice.equals("all")) {
-                    printJobs(JobData.findAll());
-                } else {
-
-                    ArrayList<String> results = JobData.findAll(columnChoice);
-
-                    System.out.println("\n*** All " + columnChoices.get(columnChoice) + " Values ***");
-
-                    // Print list of skills, employers, etc
-                    for (String item : results) {
-                        System.out.println(item);
-                    }
-                }
+    if (columnChoice.equals("all")) {
+        printJobs(JobData.findAll());
+    } else {
+        // Use findAll() directly and pass the result to printJobs()
+        printJobs(JobData.findAll());
+    }
+}
 
             } else { // choice is "search"
 
