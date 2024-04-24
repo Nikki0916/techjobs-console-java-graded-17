@@ -26,24 +26,24 @@ public class JobData {
 //     * @param field The column to retrieve values from
      * @return List of all of the values of the given field
      */
-    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+    public static ArrayList<String> findAll(String field) {
+
         // load data, if not already loaded
         loadData();
 
-        ArrayList<HashMap<String, String>> results = new ArrayList<>();
+        ArrayList<String> values = new ArrayList<>();
 
-        for (HashMap<String, String> job : allJobs) {
-            for (String column : job.keySet()) {
-                String columnValue = job.get(column);
-                if (columnValue != null && columnValue.toLowerCase().contains(value.toLowerCase())) {
-                    results.add(job);
-                    break;
-                }
+        for (HashMap<String, String> row : allJobs) {
+            String aValue = row.get(field);
+
+            if (!values.contains(aValue)) {
+                values.add(aValue);
             }
         }
 
-        return results;
+        return values;
     }
+
 
     public static ArrayList<HashMap<String, String>> findAll() {
         // load data, if not already loaded
@@ -71,7 +71,7 @@ public class JobData {
 
         for (HashMap<String, String> row : allJobs) {
             String aValue = row.get(column);
-            if (aValue != null && aValue.toLowerCase().contains(value.toLowerCase())) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
