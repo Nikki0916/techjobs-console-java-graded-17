@@ -8,7 +8,6 @@ import java.util.Scanner;
  */
 import java.util.*;
 
-import java.util.*;
 
 public class TechJobs {
 
@@ -44,9 +43,7 @@ public class TechJobs {
 
                 if (columnChoice.equals("all")) {
                     printJobs(JobData.findAll());
-                } else {
-                    printJobs(JobData.findAll(columnChoice));
-                }
+                } 
 
             } else {
 
