@@ -6,15 +6,13 @@ import java.util.Scanner;
 /**
  * Created by LaunchCode
  */
-import java.util.*;
-
-
 public class TechJobs {
 
     static Scanner in = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main (String[] args) {
 
+        
         HashMap<String, String> columnChoices = new HashMap<>();
         columnChoices.put("core competency", "Skill");
         columnChoices.put("employer", "Employer");
@@ -27,6 +25,8 @@ public class TechJobs {
         actionChoices.put("list", "List");
 
         System.out.println("Welcome to LaunchCode's TechJobs App!");
+
+        
         while (true) {
 
             String actionChoice = getUserSelection("View jobs by (type 'x' to quit):", actionChoices);
@@ -37,28 +37,23 @@ public class TechJobs {
 
                 String columnChoice = getUserSelection("List", columnChoices);
 
-            }
-
                 if (columnChoice.equals("all")) {
                     printJobs(JobData.findAll());
-                } 
-            
-            } else {
+                } else {
 
-                  ArrayList<String> results = JobData.findAll(columnChoice);
+                    ArrayList<String> results = JobData.findAll(columnChoice);
 
                     System.out.println("\n*** All " + columnChoices.get(columnChoice) + " Values ***");
-                               
-            for (String item : results) {
+
+                    // Print list of skills, employers, etc
+                    for (String item : results) {
                         System.out.println(item);
-
-
+                    }
                 }
-    }
-    } 
-else { //  "search"
 
-                // How does the user want to search 
+            } else { // choice is "search"
+
+                // How does the user want to search (e.g. by skill or employer)
                 String searchField = getUserSelection("Search by:", columnChoices);
 
                 // search term?
@@ -74,15 +69,14 @@ else { //  "search"
         }
     }
 
-
+    // Returns the key of the selected item from the choices 
     private static String getUserSelection(String menuHeader, HashMap<String, String> choices) {
 
-                int choiceIdx = -1;
+        int choiceIdx = -1;
         Boolean validChoice = false;
         String[] choiceKeys = new String[choices.size()];
 
         // Put the choices in an ordered structure
-
         int i = 0;
         for (String choiceKey : choices.keySet()) {
             choiceKeys[i] = choiceKey;
@@ -93,7 +87,7 @@ else { //  "search"
 
             System.out.println("\n" + menuHeader);
 
-            // Print available choices
+            // Print all available choices
             for (int j = 0; j < choiceKeys.length; j++) {
                 System.out.println("" + j + " - " + choices.get(choiceKeys[j]));
             }
@@ -121,18 +115,19 @@ else { //  "search"
         return choiceKeys[choiceIdx];
     }
 
-    //  list of jobs printed
-       private static void printJobs(ArrayList<HashMap<String, String>> someJobs, String columnName) {
-        if (someJobs.isEmpty()) {
-            System.out.println("No Results");
+    // Print list of jobs
+    private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+        if (someJobs.isEmpty()){
+            System.out.print("No Results");
         } else {
-            System.out.println("\n*** All " + columnName + " Values ***");
             for (HashMap<String, String> job : someJobs) {
-                System.out.println("\n*****");
+                System.out.println("\n*****"); 
+
                 for (Map.Entry<String, String> entry : job.entrySet()) {
-                    System.out.println(entry.getKey() + ": " + entry.getValue());
+                    System.out.println(entry.getKey() + ": " + entry.getValue()); 
                 }
-                System.out.println("*****");
+
+                System.out.println("*****"); 
             }
         }
     }
