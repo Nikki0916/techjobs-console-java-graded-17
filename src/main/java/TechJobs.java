@@ -43,16 +43,16 @@ public class TechJobs {
                 if (columnChoice.equals("all")) {
                     printJobs(JobData.findAll());
                 } else {
-                    printJobs(JobData.findAll(columnChoice));
+                    printJobs(JobData.findAll());
                 }
 
-            } else { // choice is "search"
+            } else {
 
                
                 String searchField = getUserSelection("Search by:", columnChoices);
 
                 if (searchField == null) {
-                    break; // If the user quits while selecting search field, exit the loop
+                    break; 
                 }
 
                 
@@ -84,7 +84,7 @@ public class TechJobs {
             String userInput = in.nextLine();
 
             if (userInput.equals("x")) {
-                return null; // If the user types 'x', exit the loop and return null
+                return null; 
             }
 
             try {
