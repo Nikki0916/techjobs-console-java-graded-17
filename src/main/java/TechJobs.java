@@ -8,6 +8,8 @@ import java.util.Scanner;
  */
 import java.util.*;
 
+import java.util.*;
+
 public class TechJobs {
 
     static Scanner in = new Scanner(System.in);
@@ -43,19 +45,17 @@ public class TechJobs {
                 if (columnChoice.equals("all")) {
                     printJobs(JobData.findAll());
                 } else {
-                    printJobs(JobData.findAll());
+                    printJobs(JobData.findAll(columnChoice));
                 }
 
             } else {
 
-               
                 String searchField = getUserSelection("Search by:", columnChoices);
 
                 if (searchField == null) {
-                    break; 
+                    break;
                 }
 
-                
                 System.out.println("\nSearch term:");
                 String searchTerm = in.nextLine();
 
@@ -67,7 +67,6 @@ public class TechJobs {
             }
         }
     }
-
 
     private static String getUserSelection(String menuHeader, HashMap<String, String> choices) {
 
@@ -84,7 +83,7 @@ public class TechJobs {
             String userInput = in.nextLine();
 
             if (userInput.equals("x")) {
-                return null; 
+                return null;
             }
 
             try {
@@ -92,15 +91,14 @@ public class TechJobs {
                 if (choiceIdx >= 0 && choiceIdx < choiceKeys.length) {
                     return choiceKeys[choiceIdx];
                 } else {
-                    System.out.println("Invalid choice. Try again.");
+                    System.out.println("Invalid. Please Try again.");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Invalid choice. Try again.");
+                System.out.println("Invalid. Please Try again.");
             }
 
         } while (true);
     }
-
 
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
@@ -118,4 +116,3 @@ public class TechJobs {
         }
     }
 }
-
