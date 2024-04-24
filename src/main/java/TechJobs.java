@@ -40,6 +40,8 @@ public class TechJobs {
                 if (columnChoice == null) {
                     break; // If the user quits while selecting column choice, exit the loop
                 }
+                else { printJobs(JobData.findAll()); -
+    }
 
                 if (columnChoice.equals("all")) {
                     printJobs(JobData.findAll());
