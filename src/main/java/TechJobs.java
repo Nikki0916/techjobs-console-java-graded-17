@@ -12,7 +12,7 @@ public class TechJobs {
 
     public static void main (String[] args) {
 
-        // Initialize our field map with key/name pairs
+        // field map with key/name pairs
         HashMap<String, String> columnChoices = new HashMap<>();
         columnChoices.put("core competency", "Skill");
         columnChoices.put("employer", "Employer");
@@ -20,35 +20,34 @@ public class TechJobs {
         columnChoices.put("position type", "Position Type");
         columnChoices.put("all", "All");
 
-        // Top-level menu options
+  
         HashMap<String, String> actionChoices = new HashMap<>();
         actionChoices.put("search", "Search");
         actionChoices.put("list", "List");
 
         System.out.println("Welcome to LaunchCode's TechJobs App!");
 
-        // Allow the user to search until they manually quit
+        // Allow the user to search until they  quit
         while (true) {
 
             String actionChoice = getUserSelection("View jobs by (type 'x' to quit):", actionChoices);
 
             if (actionChoice == null) {
                 break;
-            else if (actionChoice.equals("list")) {
+            } else if (actionChoice.equals("list")) {
 
-    String columnChoice = getUserSelection("List", columnChoices);
+                String columnChoice = getUserSelection("List", columnChoices);
 
-    if (columnChoice.equals("all")) {
-        printJobs(JobData.findAll());
-    } else {
-        // Use findAll() directly and pass the result to printJobs()
-        printJobs(JobData.findAll());
-    }
-}
+                if (columnChoice.equals("all")) {
+                    printJobs(JobData.findAll());
+                } else {
+                    // Use findAll() directly and pass the result to printJobs()
+                    printJobs(JobData.findAll());
+                }
 
             } else { // choice is "search"
 
-                // How does the user want to search (e.g. by skill or employer)
+                // How does the user want to search 
                 String searchField = getUserSelection("Search by:", columnChoices);
 
                 // What is their search term?
@@ -64,15 +63,15 @@ public class TechJobs {
         }
     }
 
-    // ﻿Returns the key of the selected item from the choices Dictionary
+    // ﻿Returns the key of the selected item from choices
     private static String getUserSelection(String menuHeader, HashMap<String, String> choices) {
 
         int choiceIdx = -1;
         Boolean validChoice = false;
         String[] choiceKeys = new String[choices.size()];
 
-        // Put the choices in an ordered structure so we can
-        // associate an integer with each one
+        // Put the choices in an ordered structure 
+     
         int i = 0;
         for (String choiceKey : choices.keySet()) {
             choiceKeys[i] = choiceKey;
@@ -84,8 +83,8 @@ public class TechJobs {
             System.out.println("\n" + menuHeader);
 
             // Print available choices
-            for (int j = 0; j < choiceKeys.length; j++) {
-                System.out.println("" + j + " - " + choices.get(choiceKeys[j]));
+            for (int i = 0; i < choiceKeys.length; i++) {
+                System.out.println("" + i + " - " + choices.get(choiceKeys[i]));
             }
 
             if (in.hasNextInt()) {
@@ -106,7 +105,7 @@ public class TechJobs {
                 validChoice = true;
             }
 
-        } while(!validChoice);
+        } while (!validChoice);
 
         return choiceKeys[choiceIdx];
     }
@@ -129,3 +128,5 @@ public class TechJobs {
     }
 
 }
+
+
