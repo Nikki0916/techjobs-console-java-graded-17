@@ -37,24 +37,31 @@ public class TechJobs {
 
                 String columnChoice = getUserSelection("List", columnChoices);
 
-                if (columnChoice == null) {
-                    break; // If the user quits while selecting column choice, exit the loop
-                }
-                else { printJobs(JobData.findAll()); -
-    }
+            }
 
                 if (columnChoice.equals("all")) {
                     printJobs(JobData.findAll());
                 } 
-
+            
             } else {
 
+                  ArrayList<String> results = JobData.findAll(columnChoice);
+
+                    System.out.println("\n*** All " + columnChoices.get(columnChoice) + " Values ***");
+                               
+            for (String item : results) {
+                        System.out.println(item);
+
+
+                }
+    }
+    } 
+else { //  "search"
+
+                // How does the user want to search 
                 String searchField = getUserSelection("Search by:", columnChoices);
 
-                if (searchField == null) {
-                    break;
-                }
-
+                // search term?
                 System.out.println("\nSearch term:");
                 String searchTerm = in.nextLine();
 
@@ -67,51 +74,67 @@ public class TechJobs {
         }
     }
 
+
     private static String getUserSelection(String menuHeader, HashMap<String, String> choices) {
 
-        String[] choiceKeys = choices.keySet().toArray(new String[0]);
+                int choiceIdx = -1;
+        Boolean validChoice = false;
+        String[] choiceKeys = new String[choices.size()];
+
+        // Put the choices in an ordered structure
+
+        int i = 0;
+        for (String choiceKey : choices.keySet()) {
+            choiceKeys[i] = choiceKey;
+            i++;
+        }
 
         do {
+
             System.out.println("\n" + menuHeader);
 
             // Print available choices
-            for (int i = 0; i < choiceKeys.length; i++) {
-                System.out.println("" + i + " - " + choices.get(choiceKeys[i]));
+            for (int j = 0; j < choiceKeys.length; j++) {
+                System.out.println("" + j + " - " + choices.get(choiceKeys[j]));
             }
 
-            String userInput = in.nextLine();
-
-            if (userInput.equals("x")) {
-                return null;
-            }
-
-            try {
-                int choiceIdx = Integer.parseInt(userInput);
-                if (choiceIdx >= 0 && choiceIdx < choiceKeys.length) {
-                    return choiceKeys[choiceIdx];
-                } else {
-                    System.out.println("Invalid. Please Try again.");
+            if (in.hasNextInt()) {
+                choiceIdx = in.nextInt();
+                in.nextLine();
+            } else {
+                String line = in.nextLine();
+                boolean shouldQuit = line.equals("x");
+                if (shouldQuit) {
+                    return null;
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid. Please Try again.");
             }
 
-        } while (true);
+            // Validate user's input
+            if (choiceIdx < 0 || choiceIdx >= choiceKeys.length) {
+                System.out.println("Invalid choice. Try again.");
+            } else {
+                validChoice = true;
+            }
+
+        } while(!validChoice);
+
+        return choiceKeys[choiceIdx];
     }
 
+    //  list of jobs printed
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+        if (someJobs.isEmpty()){
+            System.out.print("No Results");
+        } else {
+            for (HashMap<String, String> job : someJobs) {
+                System.out.println("\n*****"); // This prints a separating line between every job(hashmap) in someJobs(arrayList) then..
 
-        if (someJobs.isEmpty()) {
-            System.out.println("No Results");
-            return;
-        }
+                for (Map.Entry<String, String> entry : job.entrySet()) {
+                    System.out.println(entry.getKey() + ": " + entry.getValue()); // This prints the key + value of every Entry in the job(HashMap), prints the key + ":" + value
+                }
 
-        for (HashMap<String, String> job : someJobs) {
-            System.out.println("*****");
-            for (Map.Entry<String, String> entry : job.entrySet()) {
-                System.out.println(entry.getKey() + ": " + entry.getValue());
+                System.out.println("*****"); // prints an additional separating line after the last key and value of the job hashmap
             }
-            System.out.println("*****\n");
         }
     }
 }
