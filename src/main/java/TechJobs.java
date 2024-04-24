@@ -122,18 +122,17 @@ else { //  "search"
     }
 
     //  list of jobs printed
-    private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
-        if (someJobs.isEmpty()){
-            System.out.print("No Results");
+       private static void printJobs(ArrayList<HashMap<String, String>> someJobs, String columnName) {
+        if (someJobs.isEmpty()) {
+            System.out.println("No Results");
         } else {
+            System.out.println("\n*** All " + columnName + " Values ***");
             for (HashMap<String, String> job : someJobs) {
-                System.out.println("\n*****"); // This prints a separating line between every job(hashmap) in someJobs(arrayList) then..
-
+                System.out.println("\n*****");
                 for (Map.Entry<String, String> entry : job.entrySet()) {
-                    System.out.println(entry.getKey() + ": " + entry.getValue()); // This prints the key + value of every Entry in the job(HashMap), prints the key + ":" + value
+                    System.out.println(entry.getKey() + ": " + entry.getValue());
                 }
-
-                System.out.println("*****"); // prints an additional separating line after the last key and value of the job hashmap
+                System.out.println("*****");
             }
         }
     }
